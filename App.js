@@ -16,18 +16,35 @@ import { StyleSheet, Text, View} from 'react-native';
 //     'Shake or press menu button for dev menu',
 // });
 
-import Login from './components/user/Login'
+//import react-navigator 
+import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation'
 
-export default class App extends Component {
-  render() {
-    return (
-        <Login />
-    );
-  }
-}
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
+
+//Import Components
+import Login from './components/user/Login'
+import AuthLoading from './components/user//AuthLoading'
+import Home from './components/home/Home'
+
+// export default class App extends Component {
+//   render() {
+
+//     return (
+//         <AuthLoading />
+//     );
+//   }
+// }
+
+
+const appStack = createStackNavigator({ Home: Home, })
+const authStack = createStackNavigator({ SignIn: Login })
+
+export default createAppContainer( createSwitchNavigator(
+  {
+    AuthLoading: AuthLoading,
+    App: appStack,
+    Auth: authStack,
   },
-});
+  {
+    initialRouteName: 'AuthLoading'
+  }
+))
