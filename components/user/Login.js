@@ -16,25 +16,55 @@ export default class Login extends Component{
 
     _handleLogin = async () => {
         //export function that is goig to log in user and handle authentication
-        await AsyncStorage.setItem('isAuthenticated', 'abc');
-        this.props.navigation.navigate('App');
-    }
-    render(){
+        console.log(this.state)
 
         let { username, password } = this.state
 
+        if ( username !== '' && password !== ''){
+            await AsyncStorage.setItem('isAuthenticated', 'abc')
+            this.props.navigation.navigate('App')
+
+        }   
+        else {
+            this.setState({
+                error: true, 
+                errorMessage: 'Please enter information'
+            })
+        }
+
+    }
+
+
+    render(){
+
+        let { username, password, error, errorMessage } = this.state
+
+        let errorMessageView = ''
+        if(error){
+            errorMessageView = errorMessage
+        }   
+
         return(
             <View style={styles.container}>
+
+                <View style={styles.headerContainer}>
+                    <Text styles={styles.header}>{errorMessageView}</Text>
+                </View>
+
                 <TextInput style={styles.inputBox} 
-                    placeholder="Username"
+                    placeholder="username"
+                    placeholderTextColor = "#ECEFF1"
                     onChangeText={(username) => this.setState({ username})}
                     value={username}
                     />
+
                 <TextInput style={styles.inputBox} 
-                    placeholder="Password"
+                    placeholder="password"
+                    placeholderTextColor = "#ECEFF1"
                     onChangeText={(password) => this.setState({ password })}
                     value={password}
                     />  
+
                 <TouchableOpacity style={styles.button} onPress={this._handleLogin}>
                     <Text style={styles.buttonText}>Log In</Text>
                 </TouchableOpacity> 
@@ -50,27 +80,29 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent:'center',
         alignItems: 'center',
+        backgroundColor: '#4F5D75',
     },
     inputBox: {
         width:300,
         borderRadius: 25,
         paddingHorizontal:16,
         fontSize:16,
-        color:'blue',
-        marginVertical: 10
+        color:'white',
+        marginVertical: 15
       },
       button: {
         width:200,
-        color:'blue',
-        backgroundColor: 'green',
+        color:'#2D3142',
+        backgroundColor: '#EF8354',
         borderRadius: 25,
-        marginVertical: 10,
+        marginTop: 15,
         paddingVertical: 13
       },
       buttonText: {
         fontSize:16,
         fontWeight:'500',
-        color:'black',
+        color:'white',
         textAlign:'center'
-      }
+      },
+      
   });
