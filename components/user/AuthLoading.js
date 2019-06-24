@@ -20,7 +20,6 @@ export default class AuthLoading extends Component {
 
             setTimeout( () => {
                 console.log(userAuth)
-
                 this.props.navigation.navigate(userAuth ? 'App' : 'Auth')
             }, 1000)
         }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native'
 
+import { _singOut } from '../functions/user_functions'
+
 
 export default class Home extends Component{
     constructor(props){
@@ -9,9 +11,15 @@ export default class Home extends Component{
 
     _signOutUser = async () => {
         try{
-            await AsyncStorage.removeItem('isAuthenticated')
+            console.log('singing out user')
+
+            if( _singOut() ){
+                console.log('user has been log out')
+                this.props.navigation.navigate('AuthLoading')
+            } else {
+                console.log('there was an error in _logout ')
+            }
             console.log('user has been log out')
-            this.props.navigation.navigate('AuthLoading')
         }
         catch(e) {
             console.log(e)

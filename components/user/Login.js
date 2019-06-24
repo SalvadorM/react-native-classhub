@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, AsyncStorage } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 
+//functions
+import { _singIn } from '../functions/user_functions'
 
 export default class Login extends Component{
     constructor() {
@@ -20,10 +22,21 @@ export default class Login extends Component{
 
         let { username, password } = this.state
 
-        if ( username !== '' && password !== ''){
-            await AsyncStorage.setItem('isAuthenticated', 'abc')
-            this.props.navigation.navigate('App')
+        if ( true ){
 
+            let user = { username, password }
+            console.log('hreer')
+
+            if(_singIn(user)){
+                console.log('navigating to app screen')
+                this.props.navigation.navigate('App')
+            }else {
+                console.log('there was an error in _signIn')
+                this.setState({
+                    error: true, 
+                    errorMessage: 'Please enter information'
+                })
+            }
         }   
         else {
             this.setState({
@@ -54,7 +67,7 @@ export default class Login extends Component{
                 <TextInput style={styles.inputBox} 
                     placeholder="username"
                     placeholderTextColor = "#ECEFF1"
-                    onChangeText={(username) => this.setState({ username})}
+                    onChangeText={(username) => this.setState({ username })}
                     value={username}
                     />
 
