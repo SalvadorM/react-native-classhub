@@ -21,9 +21,9 @@ import { createSwitchNavigator, createStackNavigator, createAppContainer } from 
 
 
 //Import Components
-import Login from './components/user/Login'
+import LoginScreen from './components/user/Login'
 import AuthLoading from './components/user//AuthLoading'
-import Home from './components/home/Home'
+import HomeScreen from './components/home/Home'
 
 // export default class App extends Component {
 //   render() {
@@ -35,8 +35,8 @@ import Home from './components/home/Home'
 // }
 
 
-const appStack = createStackNavigator({ Home: Home, })
-const authStack = createStackNavigator({ SignIn: Login })
+const appStack = createStackNavigator({ Home: HomeScreen, })
+const authStack = createStackNavigator({ SignIn: LoginScreen})
 
 export default createAppContainer( createSwitchNavigator(
   {

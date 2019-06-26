@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 
 //functions
-import { _singIn } from '../functions/user_functions'
+import { _singIn, _getUserList } from '../functions/user_functions'
 
-export default class Login extends Component{
+export default class LoginScreen extends Component{
     constructor() {
         super()
 
@@ -24,10 +24,9 @@ export default class Login extends Component{
 
         if ( true ){
 
-            let user = { username, password }
-            console.log('hreer')
-
-            if(_singIn(user)){
+            let user = { username: username.toLowerCase(), password: password.toLowerCase() }
+            const loginSuccess = await _singIn(user)
+            if(loginSuccess){
                 console.log('navigating to app screen')
                 this.props.navigation.navigate('App')
             }else {
@@ -45,6 +44,10 @@ export default class Login extends Component{
             })
         }
 
+    }
+
+    _checkAuth = async () => {
+        await _getUserList()
     }
 
 
@@ -80,6 +83,10 @@ export default class Login extends Component{
 
                 <TouchableOpacity style={styles.button} onPress={this._handleLogin}>
                     <Text style={styles.buttonText}>Log In</Text>
+                </TouchableOpacity> 
+
+                <TouchableOpacity style={styles.button} onPress={this._checkAuth}>
+                    <Text style={styles.buttonText}>USER</Text>
                 </TouchableOpacity> 
                 
             </View>

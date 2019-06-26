@@ -10,7 +10,6 @@ import {
 export default class AuthLoading extends Component {
     constructor(props){
         super(props)
-        console.log(this.props)
         this._isUserAuthenticated()
     }
 
@@ -19,7 +18,6 @@ export default class AuthLoading extends Component {
             const userAuth = await AsyncStorage.getItem('isAuthenticated')
 
             setTimeout( () => {
-                console.log(userAuth)
                 this.props.navigation.navigate(userAuth ? 'App' : 'Auth')
             }, 1000)
         }
