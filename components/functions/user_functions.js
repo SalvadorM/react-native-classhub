@@ -21,7 +21,6 @@ export const _singOut = async () => {
 
         //make call to api 
         const logOutRes = await axios.post('/user/logout')
-        console.log(logOutRes)
         return true
     }
     catch(e){
@@ -33,7 +32,6 @@ export const _singOut = async () => {
 export const _singIn = async (user) => {
     try{
         const loginRes = await axios.post('/user/login', user)
-        console.log(loginRes)
         await AsyncStorage.setItem('isAuthenticated', 'true')    
         await AsyncStorage.setItem('userId', loginRes.data.id)    
         await AsyncStorage.setItem('email', loginRes.data.email) 
@@ -47,14 +45,12 @@ export const _singIn = async (user) => {
     }
 }   
 
+export const _getUserInfo = async () => {
+    try{   
+        const userRes = await axios.get('/user/info')
+        return userRes.data 
 
-export const _getUserList = async () => {
-    try{
-        const userListRes = await axios.get('/friendship/friendlist')
-        console.log(userListRes)
-        return true 
-    }
-    catch(e){
+    }catch(e){
         console.log(e)
         return false
     }

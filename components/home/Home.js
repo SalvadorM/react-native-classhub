@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native'
+import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native'
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation'
 
 
-import { _singOut, _getUserList } from '../functions/user_functions'
+import { _singOut, _getUserInfo } from '../functions/user_functions'
 
 
 //import screen navigation components 
@@ -20,7 +20,10 @@ class HomeScreen extends Component{
         this.state = {
             username: '',
             userId: '',
+            commentLen: '',
+            postLen: '',
             cbResponce: false,
+
         }
 
         this._setInfo()
@@ -32,8 +35,10 @@ class HomeScreen extends Component{
         try{
             const username = await AsyncStorage.getItem('username')
             const currUser = await AsyncStorage.getItem('userId')
+            const userInfo = await _getUserInfo()
+
             this.setState({
-                username: username, userId: currUser, cbResponce: true
+                username: username, userId: currUser, commentLen: userInfo.comment_len,postLen: userInfo.post_len,cbResponce: true
             })
         }
         catch(e){
@@ -61,28 +66,42 @@ class HomeScreen extends Component{
         }
     }
 
-
-    _checkAuth = async () => {
-        await _getUserList()
-    }
-
     render(){
-        const { username, userId, cbResponce } = this.state
-        const userInfo = cbResponce ? <ViewFriendListScreen userId={userId} currentUser={true}/> : <View/> 
+        const { username, userId, cbResponce, commentLen, postLen } = this.state
+        const userFriendList = cbResponce ? <ViewFriendListScreen userId={userId} currentUser={true}/> : <View/> 
 
+        const profileIMG = 'https://cdn3.iconfinder.com/data/icons/avatars-9/145/Avatar_Penguin-512.png'
         return(
-            <View style={[styles.container, styles.main]}>
-                <Text style={styles.header}>{`Welcome ${username}!`}</Text>
-                <TouchableOpacity style={styles.button} onPress={this._signOutUser}>
-                    <Text style={styles.buttonText}>Sign Out</Text>
-                </TouchableOpacity> 
-                <TouchableOpacity style={styles.button} onPress={this._checkAuth}>
-                    <Text style={styles.buttonText}>USER INFO</Text>
-                </TouchableOpacity> 
+            <ScrollView>
+                <View style={[styles.container, styles.main]}>
 
-                {userInfo}
+                    <View style={styles.imgContainer}>
+                        <Image source={{uri: profileIMG}} style={styles.imgStyles} />
+                    </View>
 
-            </View>
+                    <Text style={styles.header}>{`Welcome ${username}!`}</Text>
+
+                    <View style={styles.userInfoContainer}>
+
+                        <View style={styles.userInfoBox}>
+                            <Text style={styles.boxText}>Comments: {commentLen}</Text>
+                        </View>
+
+                        <View style={styles.userInfoBox}>
+                            <Text style={styles.boxText}>Posts: {postLen}</Text>
+                        </View>
+
+                    </View>
+
+
+                    {userFriendList}
+
+
+                    <TouchableOpacity style={styles.button} onPress={this._signOutUser}>
+                        <Text style={styles.buttonText}>Sign Out</Text>
+                    </TouchableOpacity> 
+                 </View>   
+            </ScrollView>
         )
     }
 }
@@ -98,6 +117,30 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent:'center',
         alignItems: 'center',
+    },
+    imgContainer: {
+        width: '100%',
+        flex: 1,
+        justifyContent:'center',
+        alignItems: 'center',
+    },
+    imgStyles: {
+        width: 350, 
+        height: 350,
+        margin: 'auto',
+    },
+    userInfoContainer: {
+        paddingTop: 20,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
+    userInfoBox: {
+        
+    },
+    boxText: {
+
     },
     header: {
         fontSize: 24,

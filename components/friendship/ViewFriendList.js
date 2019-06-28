@@ -12,8 +12,6 @@ export default class ViewFriendListScreen extends Component{
             error: false,
             cbResponce: false,
         }
-
-        //get users from props.userId         
     }
 
     componentDidMount(){
@@ -44,10 +42,13 @@ export default class ViewFriendListScreen extends Component{
 
     _renderListItem = (item) => {
         let user = item.item
-        console.log(user)
-
         return (
-            <Text style={styles.itemCard}>{user.username}</Text>
+            <View style={styles.cardContainer} >
+                <View>
+                    <Text>IMG</Text>
+                </View>
+                <Text style={styles.itemCard}>{user.username}</Text>
+            </View>
         )
     }
 
@@ -72,6 +73,15 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems: 'center',
     }, 
+    cardContainer: {
+        flexDirection: 'row',
+        justifyContent:'center',
+        alignItems: 'center',
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: '#d6d7da',
+        width: '100%',
+    },  
     headerTop: {
         fontSize: 24,
         marginTop: 12,
