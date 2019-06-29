@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 
 //functions
-import { _singIn, _getUserList } from '../functions/user_functions'
+import { _singIn } from '../functions/user_functions'
 
 export default class LoginScreen extends Component{
     constructor() {
@@ -17,20 +17,18 @@ export default class LoginScreen extends Component{
     }
 
     _handleLogin = async () => {
-        //export function that is goig to log in user and handle authentication
-        console.log(this.state)
+        //export function that is goig to log in user and handle authenticatio
 
-        let { username, password } = this.state
-
+        //check if not empty
         if ( true ){
-
+            
+            let { username, password } = this.state
             let user = { username: username.toLowerCase(), password: password.toLowerCase() }
             const loginSuccess = await _singIn(user)
+
             if(loginSuccess){
-                console.log('navigating to app screen')
                 this.props.navigation.navigate('App')
             }else {
-                console.log('there was an error in _signIn')
                 this.setState({
                     error: true, 
                     errorMessage: 'Please enter information'
@@ -45,11 +43,6 @@ export default class LoginScreen extends Component{
         }
 
     }
-
-    _checkAuth = async () => {
-        await _getUserList()
-    }
-
 
     render(){
 
@@ -85,10 +78,6 @@ export default class LoginScreen extends Component{
                     <Text style={styles.buttonText}>Log In</Text>
                 </TouchableOpacity> 
 
-                <TouchableOpacity style={styles.button} onPress={this._checkAuth}>
-                    <Text style={styles.buttonText}>USER</Text>
-                </TouchableOpacity> 
-                
             </View>
         )
     }
@@ -115,7 +104,7 @@ const styles = StyleSheet.create({
         color:'#2D3142',
         backgroundColor: '#EF8354',
         borderRadius: 25,
-        marginTop: 15,
+        marginTop: 25,
         paddingVertical: 13
       },
       buttonText: {

@@ -72,27 +72,27 @@ class HomeScreen extends Component{
 
         const profileIMG = 'https://cdn3.iconfinder.com/data/icons/avatars-9/145/Avatar_Penguin-512.png'
         return(
-            <ScrollView>
-                <View style={[styles.container, styles.main]}>
+        <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.main}>
+                <View style={styles.imgContainer}>
+                    <Image source={{uri: profileIMG}} style={styles.imgStyles} />
+                </View>
 
-                    <View style={styles.imgContainer}>
-                        <Image source={{uri: profileIMG}} style={styles.imgStyles} />
-                    </View>
-
-                    <Text style={styles.header}>{`Welcome ${username}!`}</Text>
-
+                <View style={styles.box}>
+                    <Text style={styles.headerText}>{`Welcome ${username}!`}</Text>
+    
+        
                     <View style={styles.userInfoContainer}>
 
-                        <View style={styles.userInfoBox}>
-                            <Text style={styles.boxText}>Comments: {commentLen}</Text>
-                        </View>
-
-                        <View style={styles.userInfoBox}>
-                            <Text style={styles.boxText}>Posts: {postLen}</Text>
-                        </View>
-
+                    <View style={styles.userInfoBox}>
+                        <Text style={styles.boxText}>Comments: {commentLen}</Text>
                     </View>
 
+                    <View style={styles.userInfoBox}>
+                        <Text style={styles.boxText}>Posts: {postLen}</Text>
+                    </View>
+
+                </View>
 
                     {userFriendList}
 
@@ -100,8 +100,11 @@ class HomeScreen extends Component{
                     <TouchableOpacity style={styles.button} onPress={this._signOutUser}>
                         <Text style={styles.buttonText}>Sign Out</Text>
                     </TouchableOpacity> 
-                 </View>   
+
+                </View> 
             </ScrollView>
+        </View>   
+
         )
     }
 }
@@ -115,8 +118,14 @@ const BottomTabNav = createBottomTabNavigator({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent:'center',
-        alignItems: 'center',
+        backgroundColor: '#3D709A',
+        textAlign: 'center',
+    },
+    main: {
+        flex: 1,
+        width: '100%',
+        textAlign: 'center',
+
     },
     imgContainer: {
         width: '100%',
@@ -130,32 +139,32 @@ const styles = StyleSheet.create({
         margin: 'auto',
     },
     userInfoContainer: {
-        paddingTop: 20,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: 12,
     },
     userInfoBox: {
         
     },
-    boxText: {
-
+    box: {
+        flex: 1,
+        justifyContent:'center',
+        alignItems: 'center',
     },
-    header: {
+    headerText: {
+        paddingTop: 16,
         fontSize: 24,
         fontWeight: 'bold',
     },
-    main: {
-        marginTop: 28,
-    },
     button: {
-        width:200,
-        color:'blue',
-        backgroundColor: 'green',
+        width: 200,
+        backgroundColor: '#D9612E',
         borderRadius: 20,
         marginVertical: 15,
         paddingVertical: 10,
+        justifyContent:'center',
         alignItems: 'center',
     },
     buttonText: {

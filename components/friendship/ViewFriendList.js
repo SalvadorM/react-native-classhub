@@ -29,7 +29,6 @@ export default class ViewFriendListScreen extends Component{
                 friendListData = await _getUserIdFriendList(userId)
             }
 
-            console.log(friendListData)
             this.setState({friendList: friendListData, cbResponce: true})
         }
         catch(e){
@@ -60,6 +59,7 @@ export default class ViewFriendListScreen extends Component{
                 <Text style={styles.headerTop}>Friends</Text>
                 <FlatList 
                     data={friendList}
+                    // horizontal={true}
                     renderItem={(item) => this._renderListItem(item)}
                 />
             </View>
