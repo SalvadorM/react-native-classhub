@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TouchableHighlight, Modal } f
 //other components 
 import CoursesList from './CoursesList'
 import AddCourse from './AddCourse'
+import ChangeSemester from './ChangeSemester'
 
 
 //functions
@@ -15,6 +16,7 @@ export default class CourseScreen extends Component {
 
         this.state = {  
             classes: [],
+            showCourseModal: true,
             year: new Date().getFullYear(),
             season: "spring",
             cbResponce: false,
@@ -40,28 +42,32 @@ export default class CourseScreen extends Component {
             console.log(e)
         }
     }
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
+
+    setModalVisible = (bool) => {
+        this.setState((prev) => ({ modalVisible: !prev.modalVisible, showCourseModal: bool}))
     }
 
     render(){
-        const { classes } = this.state
+        const { classes, modalVisible, showCourseModal } = this.state
         return(
             <View style={styles.container}>
 
                 <View style={styles.infoContainer}>
                     <View style={styles.infoBox}>
-                        <TouchableOpacity style={styles.touchBtn}>
+                        <TouchableOpacity 
+                            style={styles.touchBtn}
+                            onPress={() => this.setModalVisible(true)}
+                        >
                             <Text style={styles.touchText}> Add Course </Text>
                         </TouchableOpacity>
                     </View>
 
                     <View style={styles.infoBox}>
-                        <TouchableOpacity style={styles.touchBtn}
-                        onPress={() => {
-                            this.setModalVisible(!this.state.modalVisible);
-                            }}>
-                            <Text style={styles.touchText}>Semester Info </Text>
+                        <TouchableOpacity 
+                            style={styles.touchBtn}
+                            onPress={() => this.setModalVisible(false)}
+                        >
+                                <Text style={styles.touchText}>Semester Info </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -69,23 +75,23 @@ export default class CourseScreen extends Component {
                 <CoursesList classes={classes}/>
                 
                 <Modal
-                    animationType="fade"
+                    animationType="slide"
                     transparent={false}
-                    visible={this.state.modalVisible}
+                    visible={modalVisible}
                     onRequestClose = {() => { console.log("Modal has been closed.") } }
                     >
 
                     <View style={styles.modalContainer}>
-                        <Text>Hello World!</Text>
 
-                        <AddCourse />
-                        
-                        <TouchableHighlight
-                            onPress={() => {
-                            this.setModalVisible(!this.state.modalVisible);
-                            }}>
-                            <Text>Hide Modal</Text>
-                        </TouchableHighlight>
+                        {
+                        (showCourseModal) ? 
+                            ( <AddCourse
+                                close={() => this.setModalVisible()} /> ) :
+                            (<ChangeSemester
+                                close={() => this.setModalVisible()}
+                            />)
+                        }
+
                     </View>
 
                 </Modal>

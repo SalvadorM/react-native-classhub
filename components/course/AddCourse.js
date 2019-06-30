@@ -24,9 +24,14 @@ export default class AddCourse extends Component{
         console.log('cancel, exit')
     }
 
+    _close = () => {
+        this.props.close()
+    }
 
     render(){
+        console.log(this.props)
         const { classCode, className, information, section } = this.state
+
         return( 
             <View style={styles.container}>
                 <TextInput style={styles.inputBox} 
@@ -62,7 +67,7 @@ export default class AddCourse extends Component{
                 </TouchableOpacity> 
 
 
-                <TouchableOpacity style={styles.button} onPress={this._cancel}>
+                <TouchableOpacity style={styles.button} onPress={this._close}>
                     <Text style={styles.buttonText}>Cancel</Text>
                 </TouchableOpacity> 
 
