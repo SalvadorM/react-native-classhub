@@ -18,6 +18,9 @@ export const _singOut = async () => {
         await AsyncStorage.removeItem('userId')
         await AsyncStorage.removeItem('email')
 
+        await AsyncStorage.removeItem('season')
+        await AsyncStorage.removeItem('year')
+
 
         //make call to api 
         const logOutRes = await axios.post('/user/logout')

@@ -60,14 +60,12 @@ export default class AddCourse extends Component{
                     value={section}
                 />  
 
-
-
                 <TouchableOpacity style={styles.button} onPress={this._addCourse}>
                     <Text style={styles.buttonText}>Add Course</Text>
                 </TouchableOpacity> 
 
 
-                <TouchableOpacity style={styles.button} onPress={this._close}>
+                <TouchableOpacity style={[styles.button, styles.cancel]} onPress={this._close}>
                     <Text style={styles.buttonText}>Cancel</Text>
                 </TouchableOpacity> 
 
@@ -86,17 +84,33 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     button: {
-        width:200,
+        width: 150,
         color:'#2D3142',
         backgroundColor: '#EF8354',
         borderRadius: 25,
         marginTop: 25,
-        paddingVertical: 13
+        paddingVertical: 10
+      },
+      cancel : {
+        backgroundColor: '#e23b4b'
       },
       buttonText: {
         fontSize:16,
         fontWeight:'500',
         color:'white',
         textAlign:'center'
+      },
+      inputBox: {
+        width:300,
+        borderRadius: 25,
+        paddingHorizontal:16,
+        fontSize:16,
+        color:'white',
+        marginVertical: 15,
+        borderRadius: 20,
+        backgroundColor: '#25689e',
+        marginTop: 25,
+        paddingVertical: 13,
+        textAlign: 'center',
       },
 })

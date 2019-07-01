@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TouchableHighlight, Modal } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage, Modal } from 'react-native'
 
 //other components 
 import CoursesList from './CoursesList'
@@ -27,10 +27,26 @@ export default class CourseScreen extends Component {
     }
 
     componentDidMount(){
+        this._setCourseInfo()
         let { season, year } = this.state
         this._updateUserCourses(season, year)
     }
 
+    _setCourseInfo = async () => {
+        try{
+            const season = await AsyncStorage.getItem('season')
+            const year = await AsyncStorage.getItem('year')
+
+            if (!season && !year){
+                console.log('setting course season and year')
+                await AsyncStorage.setItem('season', 'spring')
+                await AsyncStorage.setItem('year', new Date().getFullYear())
+            }
+
+        }catch(e){
+            this.setState({error: true})
+        }
+    }
     _updateUserCourses = async (season, year) => {
         try{
             const courses = await _getUserCourses(season, year)
