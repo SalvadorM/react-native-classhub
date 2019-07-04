@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
         paddingHorizontal:16,
         fontSize:16,
         color:'white',
-        marginVertical: 15
+        marginVertical: 15,
+        textAlign: 'center',
       },
       button: {
         width:200,

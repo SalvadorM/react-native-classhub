@@ -68,9 +68,11 @@ export default class ChangeSemester extends Component{
             this.setState({error: true})
         }
     }
+    
     _close = () => {
         this.props.close()
     }
+
      _setPicker = ( bool ) => {
         this.setState({switchRender: bool })
     }

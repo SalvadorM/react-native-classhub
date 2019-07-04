@@ -25,16 +25,6 @@ import LoginScreen from './components/user/Login'
 import AuthLoading from './components/user//AuthLoading'
 import HomeScreen from './components/home/Home'
 
-// export default class App extends Component {
-//   render() {
-
-//     return (
-//         <AuthLoading />
-//     );
-//   }
-// }
-
-
 const appStack = createStackNavigator({ Home: HomeScreen, })
 const authStack = createStackNavigator({ SignIn: LoginScreen})
 

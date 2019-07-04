@@ -9,7 +9,6 @@ import { _singOut, _getUserInfo } from '../functions/user_functions'
 //import screen navigation components 
 
 import CourseScreen from '../course/Courses'
-import SearchScreen from '../search/Search'
 import ViewFriendListScreen from '../friendship/ViewFriendList'
 
 
@@ -112,7 +111,6 @@ class HomeScreen extends Component{
 const BottomTabNav = createBottomTabNavigator({
     Home: HomeScreen, 
     Courses: CourseScreen,
-    Search: SearchScreen,
 })
 
 const styles = StyleSheet.create({

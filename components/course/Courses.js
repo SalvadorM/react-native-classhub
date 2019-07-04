@@ -5,17 +5,23 @@ import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage, Modal } from 'r
 import CoursesList from './CoursesList'
 import AddCourse from './AddCourse'
 import ChangeSemester from './ChangeSemester'
+import CommentsList from '../comments/CommentsList'
+import PostsList from '../post/PostsList'
 
 
 //functions
 import { _getUserCourses } from '../functions/course'
+import { _getUserPost, _getUserComments } from '../functions/post'
+
 
 export default class CourseScreen extends Component {
     constructor(props){
         super(props)
 
         this.state = {  
-            classes: [],
+            Courses: [],
+            Comments: [],
+            Posts: [],
             showCourseModal: true,
             year: new Date().getFullYear(),
             season: "spring",
@@ -27,35 +33,24 @@ export default class CourseScreen extends Component {
     }
 
     componentDidMount(){
-        this._setCourseInfo()
         let { season, year } = this.state
-        this._updateUserCourses(season, year)
+        this._setUserInfo(season, year)
     }
 
-    _setCourseInfo = async () => {
-        try{
-            const season = await AsyncStorage.getItem('season')
-            const year = await AsyncStorage.getItem('year')
+    _setUserInfo = async (season, year) => {
+        try {
+            const UserId = await AsyncStorage.getItem('userId')
+            const Courses = await _getUserCourses(season, year)
+            const Posts = await _getUserPost(UserId)
+            const Comments = await _getUserComments(UserId)
 
-            if (!season && !year){
-                console.log('setting course season and year')
-                await AsyncStorage.setItem('season', 'spring')
-                await AsyncStorage.setItem('year', new Date().getFullYear())
-            }
-
-        }catch(e){
-            this.setState({error: true})
-        }
-    }
-    _updateUserCourses = async (season, year) => {
-        try{
-            const courses = await _getUserCourses(season, year)
-            console.log(courses)
-            this.setState({
-                classes: courses
+            this .setState({
+                Courses, Posts, Comments
             })
+
         }catch(e){
             console.log(e)
+            this.setState({ error: true})
         }
     }
 
@@ -64,7 +59,8 @@ export default class CourseScreen extends Component {
     }
 
     render(){
-        const { classes, modalVisible, showCourseModal } = this.state
+
+        const { Courses, modalVisible, showCourseModal, Comments, Posts } = this.state
         return(
             <View style={styles.container}>
 
@@ -88,8 +84,10 @@ export default class CourseScreen extends Component {
                     </View>
                 </View>
 
-                <CoursesList classes={classes}/>
-                
+                <CoursesList classes={Courses}/>
+                <CommentsList comments={Comments} />
+                <PostsList posts={Posts} />
+  
                 <Modal
                     animationType="slide"
                     transparent={false}
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#3D709A'
     },
     infoContainer: {
-        paddingTop: 8,
+        paddingTop: 24,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-around',

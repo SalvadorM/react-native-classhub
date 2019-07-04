@@ -1,25 +1,30 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 
-export default class CoursesList extends Component{
 
-    _renderCourseItem = (item) => {
-        const course = item.item
+export default class PostsList extends Component {
+    constructor(props){
+        super(props)
+    }
+
+    _renderPostItem = (item) => {
+        const post = item.item
         return(
             <View style={styles.cardContainer}>
                 <View><Text>X</Text></View>
-                <View><Text>{course.className}</Text></View>
+                <View><Text>{post.title}</Text></View>
             </View>
         )
     }
 
-    render(){
-        const classes = this.props.classes
-        return(
+    render() {
+        const posts = this.props.posts
+
+        return (
             <View style={styles.container}>
                 <FlatList 
-                    data={classes}
-                    renderItem={(item) => this._renderCourseItem(item)}
+                    data={posts}
+                    renderItem={(item) => this._renderPostItem(item)}
                 />
             </View>
         )

@@ -12,11 +12,7 @@ export default class SearchScreen extends Component {
 
         return(
             <View style={styles.container}>
-                <Text>SEARCH OPTIONS</Text>
-                <Text>POST</Text>
-                <Text>COMMENTS</Text>
-                <Text>USERNAME</Text>
-                <Text>COURSES</Text>
+
             </View>
         )
     }
