@@ -1,15 +1,21 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 
 export default class CoursesList extends Component{
-
+    constructor(props){
+        super(props)
+    }
+    
     _renderCourseItem = (item) => {
         const course = item.item
         return(
-            <View style={styles.cardContainer}>
+            <TouchableOpacity 
+                style={styles.cardContainer}
+                onPress={() => this.props.navigate('Course', course)}
+                >
                 <View><Text>X</Text></View>
                 <View><Text>{course.className}</Text></View>
-            </View>
+            </TouchableOpacity>
         )
     }
 

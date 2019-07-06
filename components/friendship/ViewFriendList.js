@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 
 //functions 
 import { _getFriendList, _getUserIdFriendList} from '../functions/friendship'
@@ -42,12 +42,14 @@ export default class ViewFriendListScreen extends Component{
     _renderListItem = (item) => {
         let user = item.item
         return (
-            <View style={styles.cardContainer} >
+            <TouchableOpacity 
+                style={styles.cardContainer} 
+                onPress={() => this.props.navigate('Profile', user)}>
                 <View>
                     <Text>IMG</Text>
                 </View>
                 <Text style={styles.itemCard}>{user.username}</Text>
-            </View>
+            </TouchableOpacity>
         )
     }
 

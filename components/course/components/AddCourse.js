@@ -21,7 +21,6 @@ export default class AddCourse extends Component{
     }
 
     _cancel = () => {
-        console.log('cancel, exit')
     }
 
     _close = () => {
@@ -29,7 +28,6 @@ export default class AddCourse extends Component{
     }
 
     render(){
-        console.log(this.props)
         const { classCode, className, information, section } = this.state
 
         return( 

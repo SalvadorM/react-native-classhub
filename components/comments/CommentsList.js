@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 
 
 export default class CommentsList extends Component {
@@ -9,11 +9,18 @@ export default class CommentsList extends Component {
 
     _renderCommentItem = (item) => {
         const comment = item.item
+        const post = {
+            id: comment.postId
+        }
+        console.log(comment)
         return(
-            <View style={styles.cardContainer}>
+            <TouchableOpacity 
+                style={styles.cardContainer}
+                onPress={() => this.props.navigate('Post', post)}>
+
                 <View><Text>X</Text></View>
                 <View><Text>{comment.body}</Text></View>
-            </View>
+            </TouchableOpacity>
         )
     }
 

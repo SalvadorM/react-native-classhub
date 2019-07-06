@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native'
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation'
+import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation'
 
 
 import { _singOut, _getUserInfo } from '../functions/user_functions'
@@ -8,9 +8,12 @@ import { _singOut, _getUserInfo } from '../functions/user_functions'
 
 //import screen navigation components 
 
-import CourseScreen from '../course/Courses'
+import CourseScreen from '../course/scenes/Courses'
 import ViewFriendListScreen from '../friendship/ViewFriendList'
 
+import UserScene from '../user/scenes/UserScene'
+import CourseScene from '../course/scenes/CourseScene'
+import PostScene from '../post/scene/PostScene'
 
 class HomeScreen extends Component{
     constructor(props){
@@ -65,12 +68,17 @@ class HomeScreen extends Component{
         }
     }
 
+    _navigate = (path, params) => {
+        this.props.navigation.navigate(path, {params})
+    }
+
     render(){
         const { username, userId, cbResponce, commentLen, postLen } = this.state
-        const userFriendList = cbResponce ? <ViewFriendListScreen userId={userId} currentUser={true}/> : <View/> 
+        const userFriendList = cbResponce ? <ViewFriendListScreen userId={userId} currentUser={true} navigate={(path ,params) => this._navigate(path, params)} /> : <View/> 
 
         const profileIMG = 'https://cdn3.iconfinder.com/data/icons/avatars-9/145/Avatar_Penguin-512.png'
         return(
+
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.main}>
                 <View style={styles.imgContainer}>
@@ -108,11 +116,6 @@ class HomeScreen extends Component{
     }
 }
 
-const BottomTabNav = createBottomTabNavigator({
-    Home: HomeScreen, 
-    Courses: CourseScreen,
-})
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -122,8 +125,8 @@ const styles = StyleSheet.create({
     main: {
         flex: 1,
         width: '100%',
+        height: '100%',
         textAlign: 'center',
-
     },
     imgContainer: {
         width: '100%',
@@ -138,7 +141,7 @@ const styles = StyleSheet.create({
     },
     userInfoContainer: {
         width: '100%',
-        flexDirection: 'row',
+        flexDirection: 'row', 
         justifyContent: 'space-around',
         alignItems: 'center',
         paddingTop: 12,
@@ -170,4 +173,23 @@ const styles = StyleSheet.create({
     }
 })
 
-export default createAppContainer(BottomTabNav)
+const HomeStack = createStackNavigator({
+    Home: {screen: HomeScreen},
+    Profile: {screen: UserScene},
+    Course: {screen: CourseScene},
+    Post: {screen: PostScene},
+})
+
+const CourseStack = createStackNavigator({
+    Courses: {screen: CourseScreen},
+    Profile: {screen: UserScene},
+    Course: {screen: CourseScene},
+    Post: {screen: PostScene},
+},
+)
+export default createAppContainer(createBottomTabNavigator({
+    Home: {screen: HomeStack}, 
+    Courses: {screen: CourseStack},
+},
+))
+

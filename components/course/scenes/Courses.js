@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage, Modal } from 'react-native'
 
 //other components 
-import CoursesList from './CoursesList'
-import AddCourse from './AddCourse'
-import ChangeSemester from './ChangeSemester'
-import CommentsList from '../comments/CommentsList'
-import PostsList from '../post/PostsList'
+import CoursesList from '../components/CoursesList'
+import AddCourse from '../components/AddCourse'
+import ChangeSemester from '../components/ChangeSemester'
+import CommentsList from '../../comments/CommentsList'
+import PostsList from '../../post/components/PostsList'
 
 
 //functions
-import { _getUserCourses } from '../functions/course'
-import { _getUserPost, _getUserComments } from '../functions/post'
+import { _getUserCourses } from '../../functions/course'
+import { _getUserPost, _getUserComments } from '../../functions/post'
 
 
 export default class CourseScreen extends Component {
@@ -54,6 +54,9 @@ export default class CourseScreen extends Component {
         }
     }
 
+    _navigate = (path, params) => {
+        this.props.navigation.navigate(path, {params})
+    }
     setModalVisible = (bool) => {
         this.setState((prev) => ({ modalVisible: !prev.modalVisible, showCourseModal: bool}))
     }
@@ -84,9 +87,9 @@ export default class CourseScreen extends Component {
                     </View>
                 </View>
 
-                <CoursesList classes={Courses}/>
-                <CommentsList comments={Comments} />
-                <PostsList posts={Posts} />
+                <CoursesList classes={Courses} navigate={(path, item) => this._navigate(path, item)}/>
+                <CommentsList comments={Comments} navigate={(path, item) => this._navigate(path, item)}/>
+                <PostsList posts={Posts} navigate={(path, item) => this._navigate(path, item)}/>
   
                 <Modal
                     animationType="slide"

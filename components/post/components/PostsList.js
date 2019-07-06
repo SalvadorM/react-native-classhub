@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 
 
 export default class PostsList extends Component {
@@ -10,10 +10,12 @@ export default class PostsList extends Component {
     _renderPostItem = (item) => {
         const post = item.item
         return(
-            <View style={styles.cardContainer}>
+            <TouchableOpacity 
+                style={styles.cardContainer}
+                onPress={() => this.props.navigate('Post', post)}>
                 <View><Text>X</Text></View>
                 <View><Text>{post.title}</Text></View>
-            </View>
+            </TouchableOpacity>
         )
     }
 

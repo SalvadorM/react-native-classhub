@@ -18,7 +18,7 @@ export default class AuthLoading extends Component {
             const userAuth = await AsyncStorage.getItem('isAuthenticated')
 
             setTimeout( () => {
-                this.props.navigation.navigate(userAuth ? 'App' : 'Auth')
+                this.props.navigation.navigate(userAuth ? 'Home' : 'Auth')
             }, 1000)
         }
         catch(err) {
@@ -26,9 +26,7 @@ export default class AuthLoading extends Component {
         }
     }
 
-
     render(){
-
         return(
             <View style={[styles.container, styles.horizontal]}>
                 <ActivityIndicator size="large" color="#0000ff"/>
@@ -40,7 +38,8 @@ export default class AuthLoading extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center'
+      justifyContent: 'center',
+      backgroundColor: '#4F5D75'
     },
     horizontal: {
       flexDirection: 'row',

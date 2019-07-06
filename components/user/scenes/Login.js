@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 
 //functions
-import { _singIn } from '../functions/user_functions'
+import { _singIn } from '../../functions/user_functions'
 
 export default class LoginScreen extends Component{
     constructor() {
@@ -27,7 +27,7 @@ export default class LoginScreen extends Component{
             const loginSuccess = await _singIn(user)
 
             if(loginSuccess){
-                this.props.navigation.navigate('App')
+                this.props.navigation.navigate('Home')
             }else {
                 this.setState({
                     error: true, 
