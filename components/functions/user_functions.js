@@ -20,8 +20,8 @@ export const _singOut = async () => {
         await AsyncStorage.removeItem('userId')
         await AsyncStorage.removeItem('email')
 
-        await AsyncStorage.removeItem('season')
-        await AsyncStorage.removeItem('year')
+        // await AsyncStorage.removeItem('season')
+        // await AsyncStorage.removeItem('year')
 
 
         //make call to api 

@@ -55,7 +55,7 @@ export default class CourseScreen extends Component {
     }
 
     _navigate = (path, params) => {
-        this.props.navigation.navigate(path, {params})
+        this.props.navigation.navigate(path, params)
     }
     setModalVisible = (bool) => {
         this.setState((prev) => ({ modalVisible: !prev.modalVisible, showCourseModal: bool}))

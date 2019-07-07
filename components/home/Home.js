@@ -69,7 +69,7 @@ class HomeScreen extends Component{
     }
 
     _navigate = (path, params) => {
-        this.props.navigation.navigate(path, {params})
+        this.props.navigation.navigate(path, params)
     }
 
     render(){

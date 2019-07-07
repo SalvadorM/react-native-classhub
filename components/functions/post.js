@@ -28,7 +28,7 @@ export const _getClassPosts = async (classCode) => {
         let url = `/post/courseposts/${classCode}`
 
         const classPostRes = await axios.get(url)
-        const status = await checkRequestStatus(postRes.status)
+        const status = await checkRequestStatus(classPostRes.status)
 
         if(status){
             return classPostRes.data

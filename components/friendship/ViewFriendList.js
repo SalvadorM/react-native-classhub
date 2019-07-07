@@ -4,6 +4,9 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native
 //functions 
 import { _getFriendList, _getUserIdFriendList} from '../functions/friendship'
 
+//components 
+import FriendList from './components/FriendList'
+
 export default class ViewFriendListScreen extends Component{
     constructor(props){
         super(props)
@@ -38,32 +41,18 @@ export default class ViewFriendListScreen extends Component{
             })
         }
     }
-
-    _renderListItem = (item) => {
-        let user = item.item
-        return (
-            <TouchableOpacity 
-                style={styles.cardContainer} 
-                onPress={() => this.props.navigate('Profile', user)}>
-                <View>
-                    <Text>IMG</Text>
-                </View>
-                <Text style={styles.itemCard}>{user.username}</Text>
-            </TouchableOpacity>
-        )
+    
+    _navigate = (path, item) => {
+        this.props.navigate(path, item)
     }
 
     render(){
         const { friendList } = this.state
-
         return(
             <View style={styles.container}>
-                <Text style={styles.headerTop}>Friends</Text>
-                <FlatList 
-                    data={friendList}
-                    // horizontal={true}
-                    renderItem={(item) => this._renderListItem(item)}
-                />
+                 <FriendList 
+                    friendlist={friendList}
+                    navigate={(path, item) => this._navigate(path, item)} />
             </View>
         )
     }   

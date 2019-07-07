@@ -24,7 +24,7 @@ export const _getUserCourses = async ( season, year ) => {
     }
 }
 
-export const getCourseInformation = async (classcode) => {
+export const _getCourseInformation = async (classcode) => {
     try { 
         let api_url =  `/class/findclass/${classcode}`
 
@@ -43,7 +43,7 @@ export const getCourseInformation = async (classcode) => {
     }
 }
 
-export const getCourseStudents = async (classcode, season, year, section) => {
+export const _getCourseStudents = async (classcode, season, year, section) => {
     try {
         let api_url = `/usercourse/classmates?year=${year}&season=${season}&classcode=${classcode}&section=${section}`
 
@@ -51,7 +51,15 @@ export const getCourseStudents = async (classcode, season, year, section) => {
         const status = await checkRequestStatus(courseStudentsRes.status)
 
         if (status) {
-            return courseRes.data 
+            const courseStudents  = courseStudentsRes.data.map(val => {
+                let student = {
+                    userId: val.user.id,
+                    username: val.user.username,
+                    name: val.user.name
+                }
+                return student
+            })
+            return courseStudents
         }
 
         throw 'Error'
