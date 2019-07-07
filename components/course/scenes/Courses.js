@@ -105,6 +105,7 @@ export default class CourseScreen extends Component {
                             ( <AddCourse
                                 close={() => this.setModalVisible()} /> ) :
                             (<ChangeSemester
+                                setInfo={(season, year) => this._setUserInfo(season, year)}
                                 close={() => this.setModalVisible()}
                             />)
                         }

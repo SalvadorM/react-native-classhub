@@ -60,7 +60,13 @@ export default class ChangeSemester extends Component{
 
     _changeSemester = async (key, val) => {
         try {
+            const { season, year } = this.state
             await AsyncStorage.setItem(key, val)
+            if(key === 'season') {
+                this.props.setInfo(val, year)
+            } else {
+                this.props.setInfo(season, val)
+            }
             this.setState({[key]: val})
 
         } catch(e) {
