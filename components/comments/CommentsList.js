@@ -12,7 +12,6 @@ export default class CommentsList extends Component {
         const post = {
             id: comment.postId
         }
-        console.log(comment)
         return(
             <TouchableOpacity 
                 style={styles.cardContainer}

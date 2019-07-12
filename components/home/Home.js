@@ -11,7 +11,7 @@ import { _singOut, _getUserInfo } from '../functions/user_functions'
 import CourseScreen from '../course/scenes/Courses'
 import ViewFriendListScreen from '../friendship/ViewFriendList'
 
-import UserScene from '../user/scenes/UserScene'
+import UserProfileScene from '../user/scenes/UserScene'
 import CourseScene from '../course/scenes/CourseScene'
 import PostScene from '../post/scene/PostScene'
 
@@ -53,15 +53,9 @@ class HomeScreen extends Component{
 
     _signOutUser = async () => {
         try{
-            console.log('singing out user')
-
             if( _singOut() ){
-                console.log('user has been log out')
                 this.props.navigation.navigate('AuthLoading')
-            } else {
-                console.log('there was an error in _logout ')
-            }
-            console.log('user has been log out')
+            } 
         }
         catch(e) {
             console.log(e)
@@ -175,14 +169,14 @@ const styles = StyleSheet.create({
 
 const HomeStack = createStackNavigator({
     Home: {screen: HomeScreen},
-    Profile: {screen: UserScene},
+    Profile: {screen: UserProfileScene},
     Course: {screen: CourseScene},
     Post: {screen: PostScene},
 })
 
 const CourseStack = createStackNavigator({
     Courses: {screen: CourseScreen},
-    Profile: {screen: UserScene},
+    Profile: {screen: UserProfileScene},
     Course: {screen: CourseScene},
     Post: {screen: PostScene},
 },

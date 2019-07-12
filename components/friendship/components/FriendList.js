@@ -27,7 +27,6 @@ export default class FriendList extends Component{
 
     render(){
         const friendList = this.props.friendlist
-        console.log(friendList)
         return(
             <View style={styles.container}>
                 <Text style={styles.headerTop}>Friends</Text>

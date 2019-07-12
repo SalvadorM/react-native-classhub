@@ -88,3 +88,23 @@ export const _getUserInfo = async () => {
         return false
     }
 }
+
+
+export const _getProfileInfo = async (profileId) => {
+    try {
+        const url =  `/user/find/${profileId}`
+
+        const profileRes = await axios.get(url)
+        const status = await checkRequestStatus(profileRes.status)
+
+        if(status){
+            return profileRes.data
+        }
+
+        throw 'Error'
+
+    } catch(e) {
+        console.log(e)
+        return false
+    }
+}
