@@ -90,7 +90,7 @@ export const _isFriends = async (friendId) => {
 
         let responce = await axios.get(url)
 
-        const status = await checkRequestStatus(frRes.status)
+        const status = await checkRequestStatus(responce.status)
 
         if(status){
             let isFriends = (responce.data.friend)? true : false
