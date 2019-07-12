@@ -25,6 +25,15 @@ export default class CommentsList extends Component {
 
     render() {
         const comments = this.props.comments 
+        const name = this.props.name
+
+        if(comments.length === 0){
+            return (
+            <View style={styles.container}>
+                <Text style={styles.header}>{`${name} has no commented`}</Text>
+            </View>
+            )
+        }
 
         return (
             <View style={styles.container}>
@@ -51,5 +60,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 4,
         width: '100%',
+    },
+    header: {
+        fontWeight: 'bold',
+        fontSize: 32,
     }
 })

@@ -68,7 +68,7 @@ class HomeScreen extends Component{
 
     render(){
         const { username, userId, cbResponce, commentLen, postLen } = this.state
-        const userFriendList = cbResponce ? <ViewFriendListScreen userId={userId} currentUser={true} navigate={(path ,params) => this._navigate(path, params)} /> : <View/> 
+        const userFriendList = cbResponce ? <ViewFriendListScreen userId={userId} name={username} currentUser={true} navigate={(path ,params) => this._navigate(path, params)} /> : <View/> 
 
         const profileIMG = 'https://cdn3.iconfinder.com/data/icons/avatars-9/145/Avatar_Penguin-512.png'
         return(

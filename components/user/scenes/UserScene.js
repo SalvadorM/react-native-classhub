@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, AsyncStorage } from 'react-native'
 //components 
-import ViewFriendListScreen from '../../friendship/ViewFriendList'
+import BottomProfileScene from '../components/BottomProfileScene'
+import PrivateFriend from '../../friendship/components/PrivateFriend'
 
 //functions
 import { _isFriends } from '../../functions/friendship'
@@ -15,22 +16,30 @@ export default class UserProfileScene extends Component {
             email: '',
             username: '',
             userId: '',
-            renderPrivate: false,
+            renderPrivate: true,
             error: true
         }
     }
 
     componentDidMount() {
+        console.log(this.props, this.state)
+
         this._setProfileInfo()
     }
 
     _setProfileInfo = async () => {
         try {
             const userProfileId = this.props.navigation.state.params.id 
+            console.log(userProfileId)
+            const sessionUserId = await AsyncStorage.getItem('userId')
             const friendStatus = await _isFriends(userProfileId)
             const profileInfo = await _getProfileInfo(userProfileId)
 
-            if(friendStatus){
+            let sameUser = (userProfileId === sessionUserId) ? true : false
+            console.log(friendStatus, sameUser)
+
+            if(friendStatus || sameUser){
+                console.log('herer')
                 this.setState({
                     name: profileInfo.name,
                     email: profileInfo.email,
@@ -38,13 +47,15 @@ export default class UserProfileScene extends Component {
                     renderPrivate: false,
                     userId: userProfileId,
                 })
+            } else {
+                this.setState({
+                    name: profileInfo.name,
+                    email: profileInfo.email,
+                    username: profileInfo.username,
+                    renderPrivate: true,
+                })
             }
-            this.setState({
-                name: profileInfo.name,
-                email: profileInfo.email,
-                username: profileInfo.username,
-                renderPrivate: true,
-            })
+
 
         } catch(e) {
             console.log(e)
@@ -53,29 +64,29 @@ export default class UserProfileScene extends Component {
     }
 
     _navigate = (path, params) => {
-        console.log('text')
+        console.log(params)
         this.props.navigation.push(path, params)
     }
 
     render(){
         const { name, email, username, renderPrivate, userId } = this.state 
         const profileIMG = 'https://cdn3.iconfinder.com/data/icons/avatars-9/145/Avatar_Penguin-512.png'
-
-        const BttmContainer = (renderPrivate) ? <ViewFriendListScreen userId={userId} currentUser={true} navigate={(path ,params) => this._navigate(path, params)} /> : <Text>HI</Text>
+        const BttmContainer = (!renderPrivate) ? <BottomProfileScene userId={userId} name={ name } navigate={(path ,params) => this._navigate(path, params)} /> : <PrivateFriend userId={userId} />
+        
         return(
             <View style={styles.container}>
                 <View style={styles.topContainer}>
-                <View style={styles.imgContainer}>
+                    <View style={styles.imgContainer}>
                     <Image source={{uri: profileIMG}} style={styles.imgStyles} />
                 </View>
 
-                <View style={styles.box}>
+                    <View style={styles.box}>
                     <Text>{username}</Text>
                     <Text>{name}</Text>
                     <Text>{email}</Text>
-
                 </View>
-            </View>
+                </View>
+                
                 <View style={styles.bottomContainer}>
                     {BttmContainer}
                 </View>
@@ -90,13 +101,12 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     topContainer: {
-        flex: 2,
+        flex: 1,
         flexDirection: 'row',
-        height: '40%'
-
     },
     bottomContainer: {
         flex: 1,
+        top: 0,
     },
     imgContainer: {
         top: 0,
@@ -114,5 +124,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center', 
         paddingTop: 24,
+        height: 300,
     }
 })

@@ -21,6 +21,15 @@ export default class PostsList extends Component {
 
     render() {
         const posts = this.props.posts
+        const name = this.props.name
+
+        if(posts.length === 0){
+            return (
+            <View style={styles.container}>
+                <Text style={styles.header}>{`${name} has no posts`}</Text>
+            </View>
+            )
+        }
 
         return (
             <View style={styles.container}>
@@ -47,5 +56,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 4,
         width: '100%',
+    },
+    header: {
+        fontWeight: 'bold',
+        fontSize: 32,
     }
 })

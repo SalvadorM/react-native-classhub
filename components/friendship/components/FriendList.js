@@ -5,9 +5,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native
 export default class FriendList extends Component{
     constructor(props){
         super(props)
-        this.state = {
-            friendList: [],
-        }
+
     }
 
 
@@ -27,9 +25,17 @@ export default class FriendList extends Component{
 
     render(){
         const friendList = this.props.friendlist
+        const name = this.props.name
+
+        if(friendList.length === 0){
+            return (
+            <View style={styles.container}>
+                <Text style={styles.header}>{`${name} has no friends`}</Text>
+            </View>
+            )
+        }
         return(
             <View style={styles.container}>
-                <Text style={styles.headerTop}>Friends</Text>
                 <FlatList 
                     data={friendList}
                     // horizontal={true}
@@ -62,6 +68,10 @@ const styles = StyleSheet.create({
     itemCard: {
         margin: 8,
         color: 'blue',
+    },
+    header: {
+        fontWeight: 'bold',
+        fontSize: 32,
     }
 
 })

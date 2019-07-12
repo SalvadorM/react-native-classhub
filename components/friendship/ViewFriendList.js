@@ -11,6 +11,7 @@ export default class ViewFriendListScreen extends Component{
     constructor(props){
         super(props)
         this.state = {
+            name: '',
             friendList: [],
             error: false,
             cbResponce: false,
@@ -32,7 +33,7 @@ export default class ViewFriendListScreen extends Component{
                 friendListData = await _getUserIdFriendList(userId)
             }
 
-            this.setState({friendList: friendListData, cbResponce: true})
+            this.setState({friendList: friendListData, cbResponce: true, nam: this.props.name})
         }
         catch(e){
             console.log(e)
@@ -47,10 +48,11 @@ export default class ViewFriendListScreen extends Component{
     }
 
     render(){
-        const { friendList } = this.state
+        const { friendList, name } = this.state
         return(
             <View style={styles.container}>
                  <FriendList 
+                    name={name}
                     friendlist={friendList}
                     navigate={(path, item) => this._navigate(path, item)} />
             </View>
