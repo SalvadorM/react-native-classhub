@@ -19,6 +19,28 @@ export const _getFriendList = async () => {
     }
 }
 
+export const _checkFriendRequestSent = async (friendId) => {
+    try{
+        const url = `/friendship/checkstatus/${friendId}`
+        const statusRes = await axios.get(url)
+
+        const status = await checkRequestStatus(statusRes.status)
+
+        if(status){
+            if (statusRes.data === null){
+                return -1
+            } else {
+                return statusRes.data.status
+            }
+        } 
+
+        throw 'Error'
+    }
+    catch(e){
+        console.log(e)
+        return false
+    }
+}
 export const _getUserIdFriendList = async (userId) => {
     try{
         let url = `/friendship/profilefriendslist/${userId}`

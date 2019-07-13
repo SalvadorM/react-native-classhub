@@ -57,6 +57,7 @@ export default class CourseScreen extends Component {
     _navigate = (path, params) => {
         this.props.navigation.navigate(path, params)
     }
+
     setModalVisible = (bool) => {
         this.setState((prev) => ({ modalVisible: !prev.modalVisible, showCourseModal: bool}))
     }
@@ -87,7 +88,7 @@ export default class CourseScreen extends Component {
                     </View>
                 </View>
 
-                <CoursesList classes={Courses} navigate={(path, item) => this._navigate(path, item)}/>
+                <CoursesList classes={Courses} navigate={(path, item) => this._navigate(path, item)} />
                 <CommentsList comments={Comments} navigate={(path, item) => this._navigate(path, item)}/>
                 <PostsList posts={Posts} navigate={(path, item) => this._navigate(path, item)}/>
   

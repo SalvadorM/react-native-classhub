@@ -26,11 +26,9 @@ export default class CourseScene extends Component {
     }
 
     componentDidMount(){
+        console.log(this.props)
         const { classCode, section } = this.props.navigation.state.params
         this._setCouseInfo(classCode, section )
-    }
-    _navigate = (path, params) => {
-        this.props.navigation.navigate(path, {params})
     }
 
     _setCouseInfo = async ( classCode, section ) => {
@@ -69,8 +67,9 @@ export default class CourseScene extends Component {
         return(
             <View style={styles.container}>
                 <Text> Course class Info</Text> 
-                <FriendList 
-                    navigate={(path, item) => this._navigate(path, item)}
+                <FriendList
+                    courseScene={true}
+                    navigate={(path, item) => this.props.navigation.navigate(path, item)}
                     friendlist={students}/>
 
             </View>
