@@ -28,7 +28,6 @@ export default class UserProfileScene extends Component {
 
     _setProfileInfo = async () => {
         try {
-            console.log(this.props)
             const userProfileId = this.props.navigation.state.params.id || this.props.navigation.state.params.userId
             const sessionUserId = await AsyncStorage.getItem('userId')
             const friendStatus = await _isFriends(userProfileId)

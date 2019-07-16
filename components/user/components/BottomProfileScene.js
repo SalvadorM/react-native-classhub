@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { View, Text, Image, StyleSheet, ActivityIndicator } from 'react-native'
 
 //components 
-import  PostsList  from '../../post/components/PostsList'
-import  CommentsList  from '../../comments/CommentsList'
+import PostsList  from '../../post/components/PostsList'
+import CommentsList  from '../../comments/components/CommentsList'
 import FriendList from '../../friendship/components/FriendList'
 
 //functions

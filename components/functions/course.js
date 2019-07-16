@@ -57,7 +57,6 @@ export const _getCourseStudents = async (classcode, season, year, section) => {
                     username: val.user.username,
                     name: val.user.name
                 }
-                console.log(val)
                 return student
             })
             return courseStudents

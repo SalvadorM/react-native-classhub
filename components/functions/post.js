@@ -11,9 +11,8 @@ export const _createPost = async (postInfo) => {
 
         const postRes = await axios.post(url, postInfo)
         const status = await checkRequestStatus(postRes.status)
-
         if(status){
-            return postRes.data
+            return true
         }
 
         throw 'Error'
@@ -98,10 +97,11 @@ export const _createComment = async (comment) => {
     try {
         let url = `/comment/new`
         const commentRes = await axios.post(url, comment)
-        const status = await checkRequestStatus(commentRes.status)
+        console.log(commentRes)
 
+        const status = await checkRequestStatus(commentRes.status)
         if(status){
-            return commentRes.data
+            return true
         }
 
         throw 'Error'

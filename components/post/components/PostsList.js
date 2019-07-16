@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native'
 
 
 export default class PostsList extends Component {
@@ -8,33 +8,46 @@ export default class PostsList extends Component {
     }
 
     _renderPostItem = (item) => {
+
         const post = item.item
+        const arrowIMG = 'https://image.flaticon.com/icons/png/512/130/130907.png'
+
         return(
             <TouchableOpacity 
                 style={styles.cardContainer}
                 onPress={() => this.props.navigate('Post', post)}>
-                <View><Text>X</Text></View>
-                <View><Text>{post.title}</Text></View>
+
+                <Image source={{uri: arrowIMG}} style={styles.arrowStyle} />
+
+                <View style={styles.titleCon}>
+                    <Text style={styles.title}>{post.title}</Text>
+                </View>
+
             </TouchableOpacity>
         )
+        
     }
 
     render() {
         const posts = this.props.posts
         const name = this.props.name
 
-        if(posts.length === 0){
-            return (
-            <View style={styles.container}>
-                <Text style={styles.header}>{`${name} has no posts`}</Text>
-            </View>
-            )
-        }
+
+
+        // if(posts.length === 0){
+        //     return (
+        //     <View style={styles.container}>
+        //         <Text style={styles.header}>{`${name} has no posts`}</Text>
+        //     </View>
+        //     )
+        // }
 
         return (
             <View style={styles.container}>
                 <FlatList 
+                    horizontal={true}
                     data={posts}
+                    ItemSeparatorComponent={() => <View style={{width: 5}} />}
                     renderItem={(item) => this._renderPostItem(item)}
                 />
             </View>
@@ -44,21 +57,33 @@ export default class PostsList extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 24,
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingBottom: 10,
     },
     cardContainer: {
-        padding: 8,
-        flexDirection: 'row',
-        justifyContent:'center',
+        height: 200,
+        width: 135,
+        backgroundColor: 'grey',
         alignItems: 'center',
         borderRadius: 4,
-        width: '100%',
     },
     header: {
         fontWeight: 'bold',
         fontSize: 32,
+    }, 
+    arrowStyle: {
+        width: 25,
+        height: 25,
+    },
+    titleCon: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '50%',
+    },
+    title: {
+        fontWeight: 'bold',
+        fontSize: 24,
     }
 })

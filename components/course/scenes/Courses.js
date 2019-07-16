@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage, Modal } from 'r
 import CoursesList from '../components/CoursesList'
 import AddCourse from '../components/AddCourse'
 import ChangeSemester from '../components/ChangeSemester'
-import CommentsList from '../../comments/CommentsList'
+import CommentsList from '../../comments/components/CommentsList'
 import PostsList from '../../post/components/PostsList'
 
 
@@ -22,7 +22,6 @@ export default class CourseScreen extends Component {
             Courses: [],
             Comments: [],
             Posts: [],
-            showCourseModal: true,
             year: new Date().getFullYear(),
             season: "spring",
             cbResponce: false,
@@ -58,8 +57,8 @@ export default class CourseScreen extends Component {
         this.props.navigation.navigate(path, params)
     }
 
-    setModalVisible = (bool) => {
-        this.setState((prev) => ({ modalVisible: !prev.modalVisible, showCourseModal: bool}))
+    setModalVisible = () => {
+        this.setState((prev) => ({ modalVisible: !prev.modalVisible}))
     }
 
     render(){

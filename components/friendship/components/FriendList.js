@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native'
 
 
 export default class FriendList extends Component{
@@ -11,37 +11,21 @@ export default class FriendList extends Component{
     
     _renderListItem = (item) => {
         let user = item.item
-        const courseScene = this.props.courseScene
-
-        if (courseScene) {
-            
-            return (
+        const profileIMG = 'https://image.flaticon.com/icons/png/512/108/108637.png'
+                   return (
 
                 <TouchableOpacity 
                 style={styles.cardContainer} 
                 onPress={() => this.props.navigate('Profile', user)}>
                 
                     <View>
-                        <Text>IMG</Text>
+                     <Image source={{uri: profileIMG}} style={styles.imageStyle} />
                     </View>
 
                     <Text style={styles.itemCard}>{user.username}</Text>
                 </TouchableOpacity>
             )
 
-        } else {
-
-            return (
-                <TouchableOpacity 
-                    style={styles.cardContainer} 
-                    onPress={() => this.props.navigate('Profile', user)}>
-                    <View>
-                        <Text>IMG</Text>
-                    </View>
-                    <Text style={styles.itemCard}>{user.username}</Text>
-                </TouchableOpacity>
-            )
-        }
 
 
     }
@@ -106,6 +90,10 @@ const styles = StyleSheet.create({
     header: {
         fontWeight: 'bold',
         fontSize: 32,
-    }
+    },
+    imageStyle: {
+        height: 32, 
+        width: 32,
+    },
 
 })
