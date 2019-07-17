@@ -15,7 +15,7 @@ export default class CommentsList extends Component {
         return(
             <TouchableOpacity 
                 style={styles.cardContainer}
-                onPress={() => this.props.navigate('Profile', post)}>
+                onPress={() => this.props.navigate('Post', post)}>
 
                 <View><Text>X</Text></View>
                 <View><Text>{comment.body}</Text></View>

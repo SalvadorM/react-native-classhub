@@ -73,7 +73,7 @@ export default class CourseScene extends Component {
 
     _updatePost = async () => {
         try {        
-            const { classCode, section } = this.props.navigation.state.params
+            const { classCode, } = this.props.navigation.state.params
             const posts = await _getClassPosts(classCode)
 
             this.setState({posts})
@@ -83,6 +83,11 @@ export default class CourseScene extends Component {
             this.setState({ error: true})
         }
 
+    }
+
+    _close = () => {
+        this._updatePost()
+        this._setModalVisible()
     }
 
     render(){
@@ -123,7 +128,7 @@ export default class CourseScene extends Component {
 
                 <TouchableOpacity 
                             style={styles.touchBtn}
-                            onPress={() => this._setModalVisible(true)}
+                            onPress={() => this._setModalVisible()}
                         >
                             <Text style={styles.touchText}> Make a post </Text>
                 </TouchableOpacity>
@@ -136,7 +141,7 @@ export default class CourseScene extends Component {
                     >
 
                     <View style={styles.modalContainer}>
-                        <CreatePost classCode={classCode} close={() => this._setModalVisible()} update={() => this._updatePost()}/>
+                        <CreatePost classCode={classCode} close={() => this._close()} update={() => this._updatePost()}/>
                     </View>
                 </Modal>
             </View>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text , StyleSheet } from 'react-native'
+import { View, Text , StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 
 //components
-
+import { _createPost } from '../../functions/post'
 
 //functions 
 
@@ -18,14 +18,29 @@ export default class CreatePost extends Component {
         }
     }
 
-
-
-    componentDidMount(){
-        console.log(this.props)
-    }
-
     _submitPost = async () => {
-        
+        try { 
+            const { title, body }  = this.state
+
+            if ((title !== '') || (body !== '')) {
+                const newPost = {
+                    title, body, classCode: this.props.classCode
+                }
+                const post = await _createPost(newPost)
+                if(post) {
+                    this.props.close()
+                }
+                console.log('new post', post)
+            } else {
+                this.setState({
+                    errorMessageView: 'title or body is empty'
+                })
+            }
+
+        } catch (e) {
+            console.log(e)
+            this.setState({error: true})
+        }
     }
 
     _Close = () => {
@@ -34,28 +49,30 @@ export default class CreatePost extends Component {
 
     render(){
 
+        const {title, body, errorMessageView } = this.state
+
         return(
             <View style={styles.container}>
 
             <View style={styles.headerContainer}>
-                <Text styles={styles.header}>{errorMessageView}</Text>
-            </View>
+                 <Text styles={styles.header}>{errorMessageView}</Text>
+             </View>
 
             <TextInput style={styles.inputBox} 
-                placeholder="username"
+                placeholder="title"
                 placeholderTextColor = "#ECEFF1"
-                onChangeText={(username) => this.setState({ username })}
-                value={username}
+                onChangeText={(title) => this.setState({ title })}
+                value={title}
                 />
 
-            <TextInput style={styles.inputBox} 
-                placeholder="password"
+            <TextInput style={styles.inputBoxBody} 
+                placeholder="body"
                 placeholderTextColor = "#ECEFF1"
-                onChangeText={(password) => this.setState({ password })}
-                value={password}
+                onChangeText={(body) => this.setState({ body })}
+                value={body}
                 />  
 
-            <TouchableOpacity style={styles.button} onPress={this._handleLogin}>
+            <TouchableOpacity style={styles.button} onPress={this._submitPost}>
                 <Text style={styles.buttonText}>Post it</Text>
             </TouchableOpacity> 
 
@@ -72,13 +89,26 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent:'center',
         alignItems: 'center',
-        backgroundColor: '#4F5D75',
     },
     inputBox: {
-        width:300,
+        width: 250,
         borderRadius: 25,
         paddingHorizontal:16,
         fontSize:16,
+        color:'white',
+        marginVertical: 15,
+        borderBottomWidth: 2,
+        borderBottomColor: '#EFD154',
+        textAlign: 'center',
+      },
+      inputBoxBody: {
+        width: 250,
+        height: 64,
+        borderRadius: 25,
+        borderWidth: 2,
+        borderColor: '#EFD154',
+        paddingHorizontal:16,
+        fontSize: 24,
         color:'white',
         marginVertical: 15,
         textAlign: 'center',

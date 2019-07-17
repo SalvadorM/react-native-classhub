@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native'
+import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, AsyncStorage, RefreshControl } from 'react-native'
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation'
 
 
@@ -25,12 +25,22 @@ class HomeScreen extends Component{
             commentLen: '',
             postLen: '',
             cbResponce: false,
-
+            refreshing: false,
         }
 
         this._setInfo()
     }
 
+    componentDidMount() {
+        console.log('here in mount')
+        this._setInfo()
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.isFocused !== this.props.isFocused) {
+            console.log('calling info')
+        }
+      }
+    
     _setInfo = async () => {
         //get info from asyncstorage 
         //and update state 
@@ -66,6 +76,12 @@ class HomeScreen extends Component{
         this.props.navigation.navigate(path, params)
     }
 
+    _onRefresh = () => {
+        this.setState({refreshing: true});
+        this._setInfo()
+        this.setState({refreshing: false})
+      }
+
     render(){
         const { username, userId, cbResponce, commentLen, postLen } = this.state
         const userFriendList = cbResponce ? <ViewFriendListScreen userId={userId} name={username} currentUser={true} navigate={(path ,params) => this._navigate(path, params)} /> : <View/> 
@@ -74,7 +90,12 @@ class HomeScreen extends Component{
         return(
 
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.main}>
+            <ScrollView contentContainerStyle={styles.main} horizontal={false}       refreshControl={
+          <RefreshControl
+          refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
+          />
+        }>
                 <View style={styles.imgContainer}>
                     <Image source={{uri: profileIMG}} style={styles.imgStyles} />
                 </View>

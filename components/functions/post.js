@@ -11,6 +11,7 @@ export const _createPost = async (postInfo) => {
 
         const postRes = await axios.post(url, postInfo)
         const status = await checkRequestStatus(postRes.status)
+        console.log(postRes)
         if(status){
             return true
         }
