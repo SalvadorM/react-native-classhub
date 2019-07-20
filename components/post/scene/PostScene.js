@@ -28,7 +28,6 @@ export default class PostScene extends Component {
     }   
 
     _navigate = (path, params) => {
-        console.log(path, params)
         this.props.navigation.navigate(path, params)
     }
 
@@ -66,10 +65,10 @@ export default class PostScene extends Component {
                 </View> */}
 
                 <View style={styles.box}>
-                <Text>{author}</Text>
-                <Text>{title}</Text>
-                <Text>{body}</Text>
-            </View>
+                    <Text style={styles.author}>{author}</Text>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.body}>{body}</Text>
+                </View>
             </View>
             
             <View style={styles.bottomContainer}>
@@ -84,6 +83,7 @@ export default class PostScene extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#3D709A',
     },
     topContainer: {
         flex: 1,
@@ -114,10 +114,28 @@ const styles = StyleSheet.create({
     LoadContainer: {
         flex: 1,
         justifyContent: 'center',
-      },
-      horizontal: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        padding: 10
-      }
+    },
+    horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
+    },
+    author: {
+        marginTop: 4,
+        color: 'white',
+        fontSize: 18, 
+        fontWeight: 'bold'
+    }, 
+    title: {        
+        marginTop: 8,
+        color: '#f5f5f5',
+        fontSize: 12, 
+        fontWeight: '100'
+    }, 
+    body: {
+        marginTop: 12,
+        color: 'white',
+        fontSize: 20, 
+        fontWeight: '400'
+    }
 })

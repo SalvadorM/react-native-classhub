@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native'
 
+const NoPost = () => {
+    return(
+        <Text style={styles.empty}>No Post</Text>
+    )
+}
 
 export default class PostsList extends Component {
     constructor(props){
@@ -19,7 +24,8 @@ export default class PostsList extends Component {
 
                 <Image source={{uri: arrowIMG}} style={styles.arrowStyle} />
 
-                <View style={styles.titleCon}>
+                <View style={styles.titleCon}>                    
+                    <Text style={styles.titleSM}>title</Text>  
                     <Text style={styles.title}>{post.title}</Text>
                 </View>
 
@@ -30,24 +36,14 @@ export default class PostsList extends Component {
 
     render() {
         const posts = this.props.posts
-        const name = this.props.name
-
-
-
-        // if(posts.length === 0){
-        //     return (
-        //     <View style={styles.container}>
-        //         <Text style={styles.header}>{`${name} has no posts`}</Text>
-        //     </View>
-        //     )
-        // }
 
         return (
             <View style={styles.container}>
                 <FlatList 
                     horizontal={true}
                     data={posts}
-                    ItemSeparatorComponent={() => <View style={{width: 5}} />}
+                    ItemSeparatorComponent={() => <View style={{width: 3}} />}
+                    ListEmptyComponent={() => <NoPost />}
                     renderItem={(item) => this._renderPostItem(item)}
                 />
             </View>
@@ -57,15 +53,20 @@ export default class PostsList extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 10,
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: '#3d9a96',
+        margin: 4, 
+        marginTop: 12,
+        padding: 4,
     },
     cardContainer: {
-        height: 200,
+        margin: 4,
         width: 135,
-        backgroundColor: 'grey',
+        backgroundColor: '#2F5575',
         alignItems: 'center',
         borderRadius: 4,
     },
@@ -84,6 +85,27 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold',
+        fontSize: 14,
+        color: 'white',
+    },
+    titleSM: {
+        fontWeight: '100',
+        fontSize: 8,
+        color: 'white',
+    },
+    itemCard: {
+        fontWeight: 'bold',
+        fontSize: 32,
+        color: 'white',
+        borderColor: 'black', 
+        borderBottomWidth: 1,
+    },
+    empty: {
+        width: '100%',
         fontSize: 24,
+        fontWeight: 'bold',
+        color: 'white'
+
     }
+
 })

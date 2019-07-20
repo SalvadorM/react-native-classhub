@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 
+const NoComments = () => {
+    return(
+        <Text style={styles.empty}>No Comments</Text>
+    )
+}
 
 export default class CommentsList extends Component {
     constructor(props){
@@ -17,8 +22,14 @@ export default class CommentsList extends Component {
                 style={styles.cardContainer}
                 onPress={() => this.props.navigate('Post', post)}>
 
-                <View><Text>X</Text></View>
-                <View><Text>{comment.body}</Text></View>
+                <TouchableOpacity style={styles.userBtn} onPress={()=> this.props.navigate('Profile', {userId: comment.userId})}>
+                    <Text style={styles.username}>{comment.user.username}</Text>
+                </TouchableOpacity>
+
+                <View style={styles.bodyCon}>
+                    <Text style={styles.title}>{comment.body}</Text>
+                </View>
+
             </TouchableOpacity>
         )
     }
@@ -27,19 +38,13 @@ export default class CommentsList extends Component {
         const comments = this.props.comments 
         const name = this.props.name
 
-        if(comments.length === 0){
-            return (
-            <View style={styles.container}>
-                <Text style={styles.header}>{`${name} has no commented`}</Text>
-            </View>
-            )
-        }
 
         return (
             <View style={styles.container}>
                 <FlatList 
                     data={comments}
                     renderItem={(item) => this._renderCommentItem(item)}
+                    ListEmptyComponent={() => <NoComments />}
                 />
             </View>
         )
@@ -48,21 +53,53 @@ export default class CommentsList extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 24,
-        flex: 1,
+        flex: 2,
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-    cardContainer: {
-        padding: 8,
-        flexDirection: 'row',
-        justifyContent:'center',
         alignItems: 'center',
         borderRadius: 4,
+        borderWidth: 1,
+        borderColor: '#3d9a96',
+        margin: 4,
+        marginTop: 12,
+        padding: 4,
+    },
+    cardContainer: {
+        marginTop: 12,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomColor: 'grey',
+        borderBottomWidth: 1,
         width: '100%',
+        height: 'auto',
     },
     header: {
         fontWeight: 'bold',
         fontSize: 32,
+    }, 
+    bodyCon: {
+        padding: 2,
+        width: '80%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    title: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        color: 'white',
+    }, 
+    username: {
+        fontSize: 8,
+        color: 'white'
+    },
+    userBtn: {
+        padding: 2,
+        backgroundColor: '#192d3e'
+    }, 
+    empty: {
+        width: '100%',
+        fontSize: 24,
+        fontWeight: 'bold', 
+        color: 'white'
+
     }
 })

@@ -78,13 +78,13 @@ export default class CommentsScene extends Component {
 
                 <TextInput style={styles.inputBox} 
                                     placeholder="comment here"
-                                    placeholderTextColor = "grey"
+                                    placeholderTextColor = "white"
                                     onChangeText={(commentInput) => this.setState({ commentInput })}
                                     value={commentInput}
                                     />
 
                 <TouchableOpacity style={styles.button} onPress={this._postComment}>                      
-                      <Text style={styles.touchText}> Make a post </Text>
+                      <Text style={styles.buttonText}>Make a post </Text>
                 </TouchableOpacity>
 
                 <View style={styles.bottomCon} >
@@ -106,24 +106,24 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         paddingHorizontal:16,
         fontSize:16,
-        color:'black',
+        color:'white',
         marginVertical: 15,
         textAlign: 'center',
-        borderBottomWidth: 2,
-        borderBottomColor: 'black'
+        borderBottomWidth: 1,
+        borderBottomColor: '#D9612E'
       },
       button: {
-        width:200,
-        color:'#2D3142',
-        backgroundColor: '#EF8354',
-        borderRadius: 25,
-        marginTop: 25,
-        paddingVertical: 13
+        width: 200,
+        backgroundColor: '#D9612E',
+        borderRadius: 20,
+        marginVertical: 15,
+        paddingVertical: 10,
+        justifyContent:'center',
+        alignItems: 'center',
       },
       buttonText: {
         fontSize:16,
         fontWeight:'500',
         color:'white',
-        textAlign:'center'
       },
 })

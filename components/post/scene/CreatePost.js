@@ -60,14 +60,14 @@ export default class CreatePost extends Component {
 
             <TextInput style={styles.inputBox} 
                 placeholder="title"
-                placeholderTextColor = "#ECEFF1"
+                placeholderTextColor = "white"
                 onChangeText={(title) => this.setState({ title })}
                 value={title}
                 />
 
             <TextInput style={styles.inputBoxBody} 
                 placeholder="body"
-                placeholderTextColor = "#ECEFF1"
+                placeholderTextColor = "white"
                 onChangeText={(body) => this.setState({ body })}
                 value={body}
                 />  
@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
         fontSize:16,
         color:'white',
         marginVertical: 15,
-        borderBottomWidth: 2,
-        borderBottomColor: '#EFD154',
+        borderBottomWidth: 1,
+        borderBottomColor: '#D9612E',
         textAlign: 'center',
       },
       inputBoxBody: {

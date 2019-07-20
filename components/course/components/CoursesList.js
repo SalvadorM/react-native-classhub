@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 
+const NoClasses = () => {
+    return(
+        <Text style={styles.empty}>No Classes</Text>
+    )
+}
+
 export default class CoursesList extends Component{
     constructor(props){
         super(props)
@@ -13,8 +19,7 @@ export default class CoursesList extends Component{
                 style={styles.cardContainer}
                 onPress={() => this.props.navigate('Course', course)}
                 >
-                <View><Text>X</Text></View>
-                <View><Text>{course.className}</Text></View>
+                <View><Text style={styles.className}>{course.className}</Text></View>
             </TouchableOpacity>
         )
     }
@@ -26,6 +31,7 @@ export default class CoursesList extends Component{
                 <FlatList 
                     data={classes}
                     renderItem={(item) => this._renderCourseItem(item)}
+                    ListEmptyComponent={() => <NoClasses />}
                 />
             </View>
         )
@@ -44,7 +50,22 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent:'center',
         alignItems: 'center',
+        borderWidth: 1,
         borderRadius: 4,
+        borderColor: '#D9612E',
         width: '100%',
+    },
+    empty: {
+        width: '100%',
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: 'white'
+
+    },
+    className: {
+        fontSize: 20, 
+        color: 'white',
+        fontWeight: 'bold',
     }
+
 })

@@ -86,14 +86,14 @@ export default class UserProfileScene extends Component {
                 <View style={styles.container}>
                     <View style={styles.topContainer}>
                         <View style={styles.imgContainer}>
-                        <Image source={{uri: profileIMG}} style={styles.imgStyles} />
-                    </View>
+                            <Image source={{uri: profileIMG}} style={styles.imgStyles} />
+                        </View>
     
                         <View style={styles.box}>
-                        <Text>{username}</Text>
-                        <Text>{name}</Text>
-                        <Text>{email}</Text>
-                    </View>
+                            <Text style={styles.txtStyle}>{username}</Text>
+                            <Text style={styles.txtStyle}>{name}</Text>
+                            <Text style={styles.email}>{email}</Text>
+                        </View>
                     </View>
                     
                     <View style={styles.bottomContainer}>
@@ -110,6 +110,7 @@ export default class UserProfileScene extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#3D709A',
     },
     topContainer: {
         flex: 1,
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     box: {
         flex: 1,
         alignItems: 'center', 
-        paddingTop: 24,
+        justifyContent: 'center',
         height: 300,
     },
     LoadContainer: {
@@ -145,5 +146,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         padding: 10
+      },
+      txtStyle: {
+        fontWeight: 'bold',
+        fontSize: 24,
+        color: 'white',
+      }, 
+      email: {
+        fontWeight: 'bold',
+        fontSize: 12,
+        color: 'white',
       }
 })
