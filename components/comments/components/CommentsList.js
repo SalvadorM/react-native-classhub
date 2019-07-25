@@ -53,13 +53,14 @@ export default class CommentsList extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        width: '95%',
         flex: 2,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 4,
         borderWidth: 1,
         borderColor: '#3d9a96',
-        margin: 4,
+        margin: 4, 
         marginTop: 12,
         padding: 4,
     },

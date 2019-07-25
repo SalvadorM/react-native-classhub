@@ -90,12 +90,15 @@ class HomeScreen extends Component{
         return(
 
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.main} horizontal={false}       refreshControl={
-          <RefreshControl
-          refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh}
-          />
-        }>
+            <ScrollView 
+            contentContainerStyle={styles.main} 
+            horizontal={false}       
+            refreshControl={
+                <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh}
+                />
+            }>
                 <View style={styles.imgContainer}>
                     <Image source={{uri: profileIMG}} style={styles.imgStyles} />
                 </View>
@@ -105,16 +108,15 @@ class HomeScreen extends Component{
     
         
                     <View style={styles.userInfoContainer}>
+                        <View style={styles.userInfoBox}>
+                            <Text style={styles.boxText}>Comments: {commentLen}</Text>
+                        </View>
 
-                    <View style={styles.userInfoBox}>
-                        <Text style={styles.boxText}>Comments: {commentLen}</Text>
+                        <View style={styles.userInfoBox}>
+                            <Text style={styles.boxText}>Posts: {postLen}</Text>
+                        </View>
+
                     </View>
-
-                    <View style={styles.userInfoBox}>
-                        <Text style={styles.boxText}>Posts: {postLen}</Text>
-                    </View>
-
-                </View>
 
                     {userFriendList}
 
@@ -170,8 +172,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     headerText: {
-        paddingTop: 16,
-        fontSize: 24,
+        paddingTop: 24,
+        fontFamily: 'Avenir',
+        fontSize: 28,
+        color: '#293036',
         fontWeight: 'bold',
     },
     button: {
@@ -185,7 +189,11 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: 'black',
-    }
+    },
+    boxText: {
+        fontSize: 20, 
+        color: "#E6E6E6",
+    },
 })
 
 const HomeStack = createStackNavigator({

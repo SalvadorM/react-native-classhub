@@ -9,9 +9,23 @@ import { checkRequestStatus } from './error'
 */
 
 
-/*
-    Sign Out User 
-*/
+export const _registerUser = async (user) => {
+    try{
+        const registerRes = await axios.post('/user/create', user)
+        const status = await checkRequestStatus(registerRes.status)
+
+        if(status) {
+            return true 
+        }
+
+        throw 'Something Wrong'
+
+
+    } catch(e) {
+        console.log(e)
+        return false
+    }
+}
 
 export const _singOut = async () => {
     try{
@@ -88,7 +102,6 @@ export const _getUserInfo = async () => {
         return false
     }
 }
-
 
 export const _getProfileInfo = async (profileId) => {
     try {

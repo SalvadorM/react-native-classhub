@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Linking } from 'react-native'
 
 //functions
 import { _singIn } from '../../functions/user_functions'
@@ -44,6 +44,14 @@ export default class LoginScreen extends Component{
 
     }
 
+    _createAccount = () => {
+        this.props.navigation.navigate('Register')
+    }
+
+    _openLink = () => {
+        Linking.openURL('https://classhub-hunter.herokuapp.com')
+    }
+
     render(){
 
         let { username, password, error, errorMessage } = this.state
@@ -55,9 +63,10 @@ export default class LoginScreen extends Component{
 
         return(
             <View style={styles.container}>
+             <Text style={styles.logo} onPress={() => this._openLink()}>ClassHub</Text>
 
                 <View style={styles.headerContainer}>
-                    <Text styles={styles.header}>{errorMessageView}</Text>
+                    <Text style={styles.header}>{errorMessageView}</Text>
                 </View>
 
                 <TextInput style={styles.inputBox} 
@@ -77,6 +86,9 @@ export default class LoginScreen extends Component{
                 <TouchableOpacity style={styles.button} onPress={this._handleLogin}>
                     <Text style={styles.buttonText}>Log In</Text>
                 </TouchableOpacity> 
+
+                <Text style={styles.register} onPress={() => this._createAccount()}>Create an account</Text>
+
 
             </View>
         )
@@ -99,6 +111,9 @@ const styles = StyleSheet.create({
         color:'white',
         marginVertical: 15,
         textAlign: 'center',
+        paddingBottom: 2,
+        borderBottomWidth: 1,
+        borderBottomColor: '#D9612E'
       },
       button: {
         width:200,
@@ -114,5 +129,25 @@ const styles = StyleSheet.create({
         color:'white',
         textAlign:'center'
       },
+      headerContainer: {
+        justifyContent:'center',
+        alignItems: 'center',
+      },
+      header: {
+
+      },
+      register: {
+        paddingTop: 10,
+        fontSize: 12, 
+        color: '#f8ffff',
+        margin: 4,
+      },
+      logo: {
+          fontSize: 28, 
+          fontWeight: 'bold',
+          color: '#f8ffff',
+          margin: 4,
+          paddingBottom: 40,
+      }
       
   });

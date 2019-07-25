@@ -22,10 +22,11 @@ import { createSwitchNavigator, createStackNavigator, createAppContainer } from 
 
 //Import Components
 import LoginScreen from './components/user/scenes/Login'
+import Register from './components/user/scenes/Register'
 import AuthLoading from './components/user/components/AuthLoading'
 import HomeScreen from './components/home/Home'
 
-const authStack = createStackNavigator({ SignIn: {screen: LoginScreen} })
+const authStack = createStackNavigator({ SignIn: {screen: LoginScreen}, Register: {screen: Register} })
 
 export default createAppContainer( createSwitchNavigator(
   {

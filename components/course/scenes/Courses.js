@@ -88,8 +88,8 @@ export default class CourseScreen extends Component {
                 </View>
 
                 <CoursesList classes={Courses} navigate={(path, item) => this._navigate(path, item)} />
-                <CommentsList comments={Comments} navigate={(path, item) => this._navigate(path, item)}/>
                 <PostsList posts={Posts} navigate={(path, item) => this._navigate(path, item)}/>
+                <CommentsList comments={Comments} navigate={(path, item) => this._navigate(path, item)}/>
   
                 <Modal
                     animationType="slide"

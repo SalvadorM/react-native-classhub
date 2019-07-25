@@ -40,10 +40,11 @@ export default class CoursesList extends Component{
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 24,
-        flex: 1,
+        width: '95%',
+        flex: 2,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: 12,
     },
     cardContainer: {
         padding: 8,

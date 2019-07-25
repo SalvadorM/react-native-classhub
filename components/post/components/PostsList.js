@@ -53,6 +53,7 @@ export default class PostsList extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        width: '95%',
         flex: 2,
         justifyContent: 'center',
         alignItems: 'center',
